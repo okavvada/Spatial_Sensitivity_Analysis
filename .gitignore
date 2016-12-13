@@ -1,0 +1,12 @@
+*.pyc
+*.csv
+*.json
+*.geojson
+*.log
+*.html
+*.sublime-project
+*.sublime-workspace
+*.ipynb_checkpoints/
+*.xlsx
+maps/
+Readings/
