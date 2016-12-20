@@ -15,34 +15,34 @@ class Parameters_values():
         self.weight_9 = 0.5
         self.weight_10 = 0.5
 
-    def max_min(self):
+    def max_min(self, percent):
         maxmin = {
-        'weight_1_min': 0,
-        'weight_2_min': 20,
-        'weight_3_min': 1.2,
-        'weight_4_min': 0.8,
-        'weight_5_min': 1.2,
-        'weight_6_min': 0.8,
-        'weight_7_min': 1.2,
-        'weight_8_min': 0.8,
-        'weight_9_min': 1.2,
-        'weight_10_min': 0.8,
-        'weight_1_max': 100,
-        'weight_2_max': 40,
-        'weight_3_max': 10,
-        'weight_4_max': 10,
-        'weight_5_max': 10,
-        'weight_6_max': 10,
-        'weight_7_max': 10,
-        'weight_8_max': 10,
-        'weight_9_max': 10,
-        'weight_10_max': 10}
+        'weight_1_min': (1-percent)*self.weight_1,
+        'weight_2_min': (1-percent)*self.weight_2,
+        'weight_3_min': (1-percent)*self.weight_3,
+        'weight_4_min': (1-percent)*self.weight_4,
+        'weight_5_min': (1-percent)*self.weight_5,
+        'weight_6_min': (1-percent)*self.weight_6,
+        'weight_7_min': (1-percent)*self.weight_7,
+        'weight_8_min': (1-percent)*self.weight_8,
+        'weight_9_min': (1-percent)*self.weight_9,
+        'weight_10_min': (1-percent)*self.weight_10,
+        'weight_1_max': (1+percent)*self.weight_1,
+        'weight_2_max': (1+percent)*self.weight_2,
+        'weight_3_max': (1+percent)*self.weight_3,
+        'weight_4_max': (1+percent)*self.weight_4,
+        'weight_5_max': (1+percent)*self.weight_5,
+        'weight_6_max': (1+percent)*self.weight_6,
+        'weight_7_max': (1+percent)*self.weight_7,
+        'weight_8_max': (1+percent)*self.weight_8,
+        'weight_9_max': (1+percent)*self.weight_9,
+        'weight_10_max': (1+percent)*self.weight_10}
         
         return maxmin
 
-    def uncertainty(self):
+    def uncertainty(self, percent):
         new_params = Parameters_values()
-        maxmin = self.max_min()
+        maxmin = self.max_min(percent)
         new_params.weight_1 = np.random.uniform(maxmin['weight_1_min'],maxmin['weight_1_max'])
         new_params.weight_2 = np.random.uniform(maxmin['weight_2_min'],maxmin['weight_2_max'])
         new_params.weight_3 = np.random.uniform(maxmin['weight_3_min'],maxmin['weight_3_max'])
@@ -113,10 +113,10 @@ class Parameters_values():
         return new_params
 
 
-def run_simulation(layers, analysis = 'Normal'):
+def run_simulation(layers, percent, analysis = 'Normal'):
     Parameters = Parameters_values()
     if analysis == 'Uncertainty':
-            perturb_Parameters = Parameters.uncertainty()
+            perturb_Parameters = Parameters.uncertainty(percent)
             Parameters = perturb_Parameters
     if analysis == 'Sensitivity':
             perturb_Parameters = Parameters.sensitivity(parameter, direction)
